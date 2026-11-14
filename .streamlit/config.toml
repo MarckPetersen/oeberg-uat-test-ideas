@@ -1,0 +1,18 @@
+# Øberg blue identity – same values as Øberg TestLab (.streamlit/config.toml),
+# originally from who-is-oeberg/css/style.css (:root).
+[theme]
+base = "dark"
+primaryColor = "#5aa9ff"              # --accent
+backgroundColor = "#0a1120"           # --bg
+secondaryBackgroundColor = "#151d2e"  # --surface
+textColor = "#e8eef7"                 # --text
+linkColor = "#8fc8ff"                 # --accent-2
+borderColor = "#26324a"               # --border
+baseRadius = "10px"                   # --radius-sm
+font = "sans-serif"
+
+[client]
+toolbarMode = "minimal"
+
+[browser]
+gatherUsageStats = false
