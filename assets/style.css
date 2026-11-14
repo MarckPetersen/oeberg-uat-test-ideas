@@ -1,0 +1,71 @@
+/* Øberg UAT Test Ideas – small CSS layer on top of the Streamlit theme.
+   Tokens from who-is-oeberg/css/style.css (:root), as reused in Øberg TestLab (assets/style.css).
+   Only stable hooks are used: data-testid / kind attributes and our own st-key-* and uat-* classes. */
+:root {
+  --bg: #0a1120; --bg-alt: #0e1628; --surface: #151d2e; --surface-2: #1b2539;
+  --border: #26324a; --border-hover: #36507a;
+  --text: #e8eef7; --text-soft: #c9d5e6; --text-muted: #9fb0c8;
+  --accent: #5aa9ff; --accent-2: #8fc8ff; --accent-deep: #2f6fd0;
+  --accent-soft: rgba(90, 169, 255, 0.12); --on-accent: #001226;
+  --success: #55d48a; --warm: #ffcf7a;
+  --radius: 18px; --radius-sm: 10px; --radius-pill: 999px;
+  --shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.6);
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+}
+
+/* Header ------------------------------------------------------------ */
+.uat-header { display: flex; align-items: center; gap: 16px; margin: 0.25rem 0 0.5rem; }
+.uat-mark {
+  flex: none; display: grid; place-items: center; width: 52px; height: 52px; border-radius: 14px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-deep));
+  color: #fff; font-family: var(--font-serif); font-size: 1.9rem; line-height: 1;
+  box-shadow: var(--shadow);
+}
+.uat-header h1 {
+  margin: 0; padding: 0; font-family: var(--font-sans); font-weight: 700;
+  font-size: clamp(1.5rem, 4vw, 2rem); line-height: 1.15; color: var(--text); letter-spacing: 0.01em;
+}
+.uat-header p { margin: 2px 0 0; color: var(--text-muted); font-size: 1rem; line-height: 1.4; }
+.uat-tagline { color: var(--accent-2) !important; font-weight: 600; font-size: 0.9rem !important; }
+
+/* Buttons: pill, as on the website and in TestLab ---------------------- */
+.stButton button { border-radius: var(--radius-pill); font-weight: 600; }
+.stButton button[kind="primary"], [data-testid="stBaseButton-primary"] { color: var(--on-accent); }
+.stButton button[kind="primary"]:hover, [data-testid="stBaseButton-primary"]:hover {
+  background: var(--accent-2); border-color: var(--accent-2); color: var(--on-accent);
+}
+.stButton button[kind="secondary"], [data-testid="stBaseButton-secondary"] {
+  background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border); color: var(--text);
+}
+.stButton button[kind="secondary"]:hover, [data-testid="stBaseButton-secondary"]:hover {
+  border-color: var(--accent); color: #fff;
+}
+/* Disabled buttons: keep the label readable (WCAG) instead of accent-on-accent. */
+.stButton button:disabled {
+  background: var(--surface-2) !important; color: var(--text-muted) !important;
+  border: 1px solid var(--border) !important; opacity: 1 !important;
+}
+:focus-visible { outline: 2px solid var(--accent) !important; outline-offset: 3px; }
+
+/* Input ---------------------------------------------------------------- */
+[data-testid="stTextArea"] textarea { font-family: var(--font-sans); line-height: 1.55; }
+
+/* Result cards (containers keyed idea_1 … idea_8) -------------------- */
+[class*="st-key-idea_"] {
+  background: var(--surface); border-color: var(--border) !important; border-radius: var(--radius) !important;
+  transition: border-color 0.2s;
+}
+[class*="st-key-idea_"]:hover { border-color: var(--border-hover) !important; }
+[class*="st-key-idea_"] p { color: var(--text); margin: 0; line-height: 1.55; }
+[class*="st-key-idea_"] strong { color: var(--accent); font-weight: 700; }
+
+/* Responsive: on phones let the action buttons use the full width ------ */
+@media (max-width: 640px) {
+  .uat-mark { width: 44px; height: 44px; font-size: 1.6rem; border-radius: 12px; }
+  [class*="st-key-actions"] .stButton, [class*="st-key-actions"] .stButton button { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}

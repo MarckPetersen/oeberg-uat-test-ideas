@@ -1,0 +1,29 @@
+{
+  "name": "Øberg UAT Test Ideas",
+  "image": "mcr.microsoft.com/devcontainers/python:1-3.12-bookworm",
+  // Install dependencies before the editor opens (also used by prebuilds).
+  "updateContentCommand": "pip install --user -r requirements.txt",
+  "waitFor": "updateContentCommand",
+  // Start the app every time you open the codespace. Port 8501 stays Private (only your GitHub login).
+  "postAttachCommand": {
+    "app": "streamlit run app.py --server.headless true --server.enableCORS false --server.enableXsrfProtection false"
+  },
+  "forwardPorts": [8501],
+  // No "visibility" key on purpose: Codespaces ports are Private by default. Do not make this port Public.
+  "portsAttributes": {
+    "8501": { "label": "Øberg UAT Test Ideas", "onAutoForward": "openBrowser" }
+  },
+  // Read from your Codespaces user secrets (GitHub → Settings → Codespaces → Secrets).
+  "secrets": {
+    "ANTHROPIC_API_KEY": {
+      "description": "Your Anthropic API key – stays in GitHub, never in the repository."
+    },
+    "ANTHROPIC_MODEL": {
+      "description": "The Claude model ID to use."
+    }
+  },
+  "customizations": {
+    "codespaces": { "openFiles": ["README.md"] },
+    "vscode": { "extensions": ["ms-python.python"] }
+  }
+}

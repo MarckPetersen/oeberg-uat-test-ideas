@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+    branches: [main, "feature/**"]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Compile
+        run: python -m compileall -q app.py uat
+      - name: Tests (no live API calls)
+        env:
+          ANTHROPIC_API_KEY: ""
+          ANTHROPIC_MODEL: ""
+        run: pytest -q
